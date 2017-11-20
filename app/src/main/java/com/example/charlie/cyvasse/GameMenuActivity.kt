@@ -15,7 +15,8 @@ class GameMenuActivity : AppCompatActivity() {
             //TODO: Implement when save functionality exists
         }
         gameMenuHowToButton.setOnClickListener {
-            //TODO: Implement when HowToActivity is created
+            val intent = Intent(applicationContext, HowToActivity::class.java)
+            startActivity(intent)
         }
         gameMenuExitButton.setOnClickListener {
             val intent = Intent(applicationContext, MainActivity::class.java)

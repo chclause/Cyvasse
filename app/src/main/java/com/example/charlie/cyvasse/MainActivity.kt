@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         }
         // How To
         howToButton.setOnClickListener {
-            // TODO: Implement when HowToActivity is created
+            val intent = Intent(applicationContext, HowToActivity::class.java)
+            startActivity(intent)
         }
     }
 }
