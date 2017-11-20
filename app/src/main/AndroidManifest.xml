@@ -19,7 +19,8 @@
         <activity
             android:name=".NewGameActivity"
             android:label="@string/title_activity_new_game"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".OfflineGameActivity"></activity>
     </application>
 
 </manifest>
