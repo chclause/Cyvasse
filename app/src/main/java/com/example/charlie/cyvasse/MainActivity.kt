@@ -11,9 +11,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Start a new game
         newGameButton.setOnClickListener {
-            val intent = Intent(applicationContext, OfflineGameActivity::class.java)
+            val intent = Intent(applicationContext, NewGameActivity::class.java)
             startActivity(intent)
+        }
+        // Load an old game
+        loadGameButton.setOnClickListener {
+            // TODO: Implement when LoadGameActivity is created
+        }
+        // How To
+        howToButton.setOnClickListener {
+            // TODO: Implement when HowToActivity is created
         }
     }
 }
