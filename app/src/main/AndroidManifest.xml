@@ -21,7 +21,8 @@
             android:label="@string/title_activity_new_game"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".OfflineGameActivity" />
-        <activity android:name=".GameMenuActivity"></activity>
+        <activity android:name=".GameMenuActivity" />
+        <activity android:name=".HowToActivity"></activity>
     </application>
 
 </manifest>
