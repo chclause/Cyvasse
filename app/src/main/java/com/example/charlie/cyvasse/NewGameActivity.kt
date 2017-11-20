@@ -1,5 +1,6 @@
 package com.example.charlie.cyvasse
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -26,6 +27,19 @@ class NewGameActivity : AppCompatActivity() {
                                      position: Int, id: Long) {
                 //TODO: Set a global selection to position
             }
+        }
+
+        // Hook up done button
+        doneButton.setOnClickListener {
+            // TODO: Implement checks for all tiles being set when more game logic exists
+            // TODO: Check which player is setting tiles and start game or just clear itself
+            val intent = Intent(applicationContext, OfflineGameActivity::class.java)
+            startActivity(intent)
+        }
+        // Go home
+        startScreenHomeButton.setOnClickListener {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
