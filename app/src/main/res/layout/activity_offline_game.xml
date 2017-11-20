@@ -7,8 +7,7 @@
     android:orientation="vertical"
     android:background="#000000"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.charlie.cyvasse.NewGameActivity"
-    tools:showIn="@layout/activity_new_game">
+    tools:context="com.example.charlie.cyvasse.OfflineGameActivity">
 
     <GridView
         android:layout_width="wrap_content"
