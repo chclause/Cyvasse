@@ -10,7 +10,7 @@ class GameTile {
     var defense: Int = 0
     var range: Int = 0
     var movement: Int = 0
-    lateinit var tileType: TileType
+    var tileType: TileType
     constructor(tType: TileType) {
         tileType = tType
         init()
