@@ -13,9 +13,9 @@ class OfflineGameActivity : AppCompatActivity() {
         // Set up adapters
         // TODO: Make a new adapter or make a parameter
         val player1GraveTiles: GridView = this.findViewById(R.id.player1Tiles)
-        player1GraveTiles.adapter = SetTileAdapter(this)
+        player1GraveTiles.adapter = SetTileAdapter(this, 0)
         val player2GraveTiles: GridView = this.findViewById(R.id.player2Tiles)
-        player2GraveTiles.adapter = SetTileAdapter(this)
+        player2GraveTiles.adapter = SetTileAdapter(this, 0)
 
         val gameBoard: GridView = this.findViewById(R.id.gameBoard)
         gameBoard.adapter = GameBoardAdapter(this)

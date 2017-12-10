@@ -18,7 +18,7 @@ class GameBoardAdapter(getContext : Context) : BaseAdapter() {
     override fun getItem(p0: Int): Any? { return null }
     override fun getItemId(p0: Int): Long { return p0.toLong() }
 
-    // We want 100 tiles
+    // We want 8x8 grid tiles
     override fun getCount(): Int {
         return 64
     }
@@ -37,6 +37,7 @@ class GameBoardAdapter(getContext : Context) : BaseAdapter() {
         else {
             imageView = convertView as SquareImageView
         }
+
         imageView.setImageResource(R.drawable.dirt_tiles)
 
         return imageView
