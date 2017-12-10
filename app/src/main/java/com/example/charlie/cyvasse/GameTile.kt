@@ -1,7 +1,7 @@
 package com.example.charlie.cyvasse
 
 /**
- * The main class in the game.  I decided to not use a heirarchy and just have all game tiles
+ * The main class in the game.  I decided to not use a class heirarchy with inheritance and just have all game tiles
  *  initialize their own stats based on an enum type passed in.  I will only be keeping track of 1 collection of these
  *  and they will hold all the data needed for the game logic.  Attack, defense, range, and movement
  */
@@ -10,9 +10,12 @@ class GameTile {
     var defense: Int = 0
     var range: Int = 0
     var movement: Int = 0
-    lateinit var tileType: TileType
-    constructor(tType: TileType) {
+    var tileType: TileType
+    val p1Tile: Boolean
+
+    constructor(tType: TileType, player1: Boolean) {
         tileType = tType
+        p1Tile = player1
         init()
     }
 
