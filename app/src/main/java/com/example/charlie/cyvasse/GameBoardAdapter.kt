@@ -22,7 +22,7 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
     override fun getItem(p0: Int): Any? { return null }
     override fun getItemId(p0: Int): Long { return p0.toLong() }
 
-    // We want 8x8 grid tiles
+    // We want 10x10 grid tiles
     override fun getCount(): Int {
         return 100
     }
@@ -47,37 +47,22 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
             imageView = convertView as SquareImageView
         }
 
-        if (gameObject.p1Turn) {
-            when (tiles[position].tileType) {
-                TileType.TERRAIN -> imageView.setImageResource(R.drawable.dirt_tiles)
-                TileType.RABBLE -> imageView.setImageResource(R.drawable.black_rable)
-                TileType.SPEARMAN -> imageView.setImageResource(R.drawable.black_spearman)
-                TileType.CROSSBOW -> imageView.setImageResource(R.drawable.black_crossbow)
-                TileType.CATIPULT -> imageView.setImageResource(R.drawable.black_catupult)
-                TileType.TREBUCHET -> imageView.setImageResource(R.drawable.black_trebuchet)
-                TileType.LIGHTHORSE -> imageView.setImageResource(R.drawable.black_lighthorse)
-                TileType.HEAVYHORSE -> imageView.setImageResource(R.drawable.black_heavyhorse)
-                TileType.ELEPHANT -> imageView.setImageResource(R.drawable.black_elephant)
-                TileType.DRAGON -> imageView.setImageResource(R.drawable.black_dragon)
-                TileType.KING -> imageView.setImageResource(R.drawable.black_king)
-                TileType.MOUNTAIN -> imageView.setImageResource(R.drawable.black_mountain)
-            }
-        }
-        else {
-            if (gameObject.gameStarted) {
+        // Setup if the game hasn't started
+        if (!gameObject.gameStarted) {
+            if (gameObject.p1Turn) {
                 when (tiles[position].tileType) {
                     TileType.TERRAIN -> imageView.setImageResource(R.drawable.dirt_tiles)
-                    TileType.RABBLE -> imageView.setImageResource(R.drawable.blue_rable)
-                    TileType.SPEARMAN -> imageView.setImageResource(R.drawable.blue_spearman)
-                    TileType.CROSSBOW -> imageView.setImageResource(R.drawable.blue_crossbow)
-                    TileType.CATIPULT -> imageView.setImageResource(R.drawable.blue_catupult)
-                    TileType.TREBUCHET -> imageView.setImageResource(R.drawable.blue_trebuchet)
-                    TileType.LIGHTHORSE -> imageView.setImageResource(R.drawable.blue_lighthorse)
-                    TileType.HEAVYHORSE -> imageView.setImageResource(R.drawable.blue_heavyhorse)
-                    TileType.ELEPHANT -> imageView.setImageResource(R.drawable.blue_elephant)
-                    TileType.DRAGON -> imageView.setImageResource(R.drawable.blue_dragon)
-                    TileType.KING -> imageView.setImageResource(R.drawable.blue_king)
-                    TileType.MOUNTAIN -> imageView.setImageResource(R.drawable.blue_mountain)
+                    TileType.RABBLE -> imageView.setImageResource(R.drawable.black_rable)
+                    TileType.SPEARMAN -> imageView.setImageResource(R.drawable.black_spearman)
+                    TileType.CROSSBOW -> imageView.setImageResource(R.drawable.black_crossbow)
+                    TileType.CATIPULT -> imageView.setImageResource(R.drawable.black_catupult)
+                    TileType.TREBUCHET -> imageView.setImageResource(R.drawable.black_trebuchet)
+                    TileType.LIGHTHORSE -> imageView.setImageResource(R.drawable.black_lighthorse)
+                    TileType.HEAVYHORSE -> imageView.setImageResource(R.drawable.black_heavyhorse)
+                    TileType.ELEPHANT -> imageView.setImageResource(R.drawable.black_elephant)
+                    TileType.DRAGON -> imageView.setImageResource(R.drawable.black_dragon)
+                    TileType.KING -> imageView.setImageResource(R.drawable.black_king)
+                    TileType.MOUNTAIN -> imageView.setImageResource(R.drawable.black_mountain)
                 }
             }
             else {
@@ -95,6 +80,44 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
                     TileType.KING -> imageView.setImageResource(R.drawable.blue_king_upright)
                     TileType.MOUNTAIN -> imageView.setImageResource(R.drawable.blue_mountain_upright)
                 }
+            }
+        }
+        else {
+            // Game has started, choose the tile based on whose it is or draw terrain
+            if (tiles[position].tileType !=  TileType.TERRAIN && tiles[position].p1Tile) {
+                when (tiles[position].tileType) {
+                    TileType.TERRAIN -> imageView.setImageResource(R.drawable.dirt_tiles)
+                    TileType.RABBLE -> imageView.setImageResource(R.drawable.black_rable)
+                    TileType.SPEARMAN -> imageView.setImageResource(R.drawable.black_spearman)
+                    TileType.CROSSBOW -> imageView.setImageResource(R.drawable.black_crossbow)
+                    TileType.CATIPULT -> imageView.setImageResource(R.drawable.black_catupult)
+                    TileType.TREBUCHET -> imageView.setImageResource(R.drawable.black_trebuchet)
+                    TileType.LIGHTHORSE -> imageView.setImageResource(R.drawable.black_lighthorse)
+                    TileType.HEAVYHORSE -> imageView.setImageResource(R.drawable.black_heavyhorse)
+                    TileType.ELEPHANT -> imageView.setImageResource(R.drawable.black_elephant)
+                    TileType.DRAGON -> imageView.setImageResource(R.drawable.black_dragon)
+                    TileType.KING -> imageView.setImageResource(R.drawable.black_king)
+                    TileType.MOUNTAIN -> imageView.setImageResource(R.drawable.black_mountain)
+                }
+            }
+            else if (tiles[position].tileType != TileType.TERRAIN && !tiles[position].p1Tile) {
+                when (tiles[position].tileType) {
+                    TileType.TERRAIN -> imageView.setImageResource(R.drawable.dirt_tiles)
+                    TileType.RABBLE -> imageView.setImageResource(R.drawable.blue_rable)
+                    TileType.SPEARMAN -> imageView.setImageResource(R.drawable.blue_spearman)
+                    TileType.CROSSBOW -> imageView.setImageResource(R.drawable.blue_crossbow)
+                    TileType.CATIPULT -> imageView.setImageResource(R.drawable.blue_catupult)
+                    TileType.TREBUCHET -> imageView.setImageResource(R.drawable.blue_trebuchet)
+                    TileType.LIGHTHORSE -> imageView.setImageResource(R.drawable.blue_lighthorse)
+                    TileType.HEAVYHORSE -> imageView.setImageResource(R.drawable.blue_heavyhorse)
+                    TileType.ELEPHANT -> imageView.setImageResource(R.drawable.blue_elephant)
+                    TileType.DRAGON -> imageView.setImageResource(R.drawable.blue_dragon)
+                    TileType.KING -> imageView.setImageResource(R.drawable.blue_king)
+                    TileType.MOUNTAIN -> imageView.setImageResource(R.drawable.blue_mountain)
+                }
+            }
+            else {
+                imageView.setImageResource(R.drawable.dirt_tiles)
             }
         }
 
