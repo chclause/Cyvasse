@@ -18,6 +18,7 @@ class OfflineGameActivity : AppCompatActivity() {
         player2GraveTiles.adapter = SetTileAdapter(this, 0)
 
         val gameBoard: GridView = this.findViewById(R.id.gameBoard)
-        gameBoard.adapter = GameBoardAdapter(this)
+        // TODO: Set the id to the game object position
+        gameBoard.adapter = GameBoardAdapter(this, 0)
     }
 }

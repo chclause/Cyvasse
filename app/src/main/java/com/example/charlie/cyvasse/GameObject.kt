@@ -22,12 +22,14 @@ class GameObject {
 
     // Collections of game tiles
     var gameTiles: MutableList<GameTile> = mutableListOf()
+    var tempTiles: MutableList<GameTile> = mutableListOf()
     var p1Graveyard: MutableList<GameTile> = mutableListOf()
     var p2Graveyard: MutableList<GameTile> = mutableListOf()
     var p1ToBeSet: HashMap<TileType, Int> = hashMapOf()
     var p2ToBeSet: HashMap<TileType, Int> = hashMapOf()
     // Keep track of whose turn it is
     var p1Turn = true
+    var gameStarted = false
 
 
     // Add all tiles that need to be set to their proper mapping
@@ -68,6 +70,7 @@ class GameObject {
         // Initialize the gameboard to only terrain
         for (i in 1..GlobalGameData.boardSize) {
             gameTiles.add(GameTile(TileType.TERRAIN, true))
+            tempTiles.add(GameTile(TileType.TERRAIN, true))
         }
     }
 }
