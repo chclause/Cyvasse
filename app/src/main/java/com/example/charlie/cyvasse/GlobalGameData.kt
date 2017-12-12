@@ -5,4 +5,6 @@ object GlobalGameData {
 
     val boardSize = 64
 
+    var player1Turn = true
+
 }

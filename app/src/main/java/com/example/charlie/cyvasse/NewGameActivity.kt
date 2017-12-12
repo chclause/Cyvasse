@@ -19,11 +19,19 @@ class NewGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_game)
+        val pos: Int
+        val newGame: GameObject
 
-        val newGame = GameObject()
-        newGame.init()
-        GlobalGameData.globalGameObjects.add(newGame)
-        val pos = GlobalGameData.globalGameObjects.indexOf(newGame)
+        if (GlobalGameData.player1Turn) {
+            newGame = GameObject()
+            newGame.init()
+            GlobalGameData.globalGameObjects.add(newGame)
+            pos = GlobalGameData.globalGameObjects.indexOf(newGame)
+        }
+        else {
+            newGame = GlobalGameData.globalGameObjects.last()
+            pos = GlobalGameData.globalGameObjects.indexOf(newGame)
+        }
 
         // Set up adapters for the game board and the tiles
         val gameBoardGridView: GridView = this.findViewById(R.id.gameBoard)
