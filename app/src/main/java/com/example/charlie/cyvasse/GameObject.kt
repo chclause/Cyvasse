@@ -24,54 +24,46 @@ class GameObject {
     var gameTiles: MutableList<GameTile> = mutableListOf()
     var p1Graveyard: MutableList<GameTile> = mutableListOf()
     var p2Graveyard: MutableList<GameTile> = mutableListOf()
-    var p1ToBeSet: MutableList<GameTile> = mutableListOf()
-    var p2ToBeSet: MutableList<GameTile> = mutableListOf()
+    var p1ToBeSet: HashMap<TileType, Int> = hashMapOf()
+    var p2ToBeSet: HashMap<TileType, Int> = hashMapOf()
     // Keep track of whose turn it is
     var p1Turn = true
 
 
-    // Add all tiles that need to be set to their proper list
+    // Add all tiles that need to be set to their proper mapping
     fun init() {
-        for (i in 1..numRabbles) {
-            p1ToBeSet.add(GameTile(TileType.RABBLE, true))
-            p2ToBeSet.add(GameTile(TileType.RABBLE, false))
-        }
-        for (i in 1..numSpears) {
-            p1ToBeSet.add(GameTile(TileType.SPEARMAN, true))
-            p2ToBeSet.add(GameTile(TileType.SPEARMAN, false))
-        }
-        for (i in 1..numCrossbows) {
-            p1ToBeSet.add(GameTile(TileType.CROSSBOW, true))
-            p2ToBeSet.add(GameTile(TileType.CROSSBOW, false))
-        }
-        for (i in 1..numCatupults) {
-            p1ToBeSet.add(GameTile(TileType.CATIPULT, true))
-            p2ToBeSet.add(GameTile(TileType.CATIPULT, false))
-        }
-        for (i in 1..numTrebuchet) {
-            p1ToBeSet.add(GameTile(TileType.TREBUCHET, true))
-            p2ToBeSet.add(GameTile(TileType.TREBUCHET, false))
-        }
-        for (i in 1..numLightHorse) {
-            p1ToBeSet.add(GameTile(TileType.LIGHTHORSE, true))
-            p2ToBeSet.add(GameTile(TileType.LIGHTHORSE, false))
-        }
-        for (i in 1..numHeavyHorse) {
-            p1ToBeSet.add(GameTile(TileType.HEAVYHORSE, true))
-            p2ToBeSet.add(GameTile(TileType.HEAVYHORSE, false))
-        }
-        for (i in 1..numElephant) {
-            p1ToBeSet.add(GameTile(TileType.ELEPHANT, true))
-            p2ToBeSet.add(GameTile(TileType.ELEPHANT, false))
-        }
-        for (i in 1..numMountains) {
-            p1ToBeSet.add(GameTile(TileType.MOUNTAIN, true))
-            p2ToBeSet.add(GameTile(TileType.MOUNTAIN, false))
-        }
-        p1ToBeSet.add(GameTile(TileType.KING, true))
-        p2ToBeSet.add(GameTile(TileType.KING, false))
-        p1ToBeSet.add(GameTile(TileType.DRAGON, true))
-        p2ToBeSet.add(GameTile(TileType.DRAGON, false))
+        p1ToBeSet[TileType.RABBLE] = numRabbles
+        p2ToBeSet[TileType.RABBLE] = numRabbles
+
+        p1ToBeSet[TileType.SPEARMAN] = numSpears
+        p2ToBeSet[TileType.SPEARMAN] = numSpears
+
+        p1ToBeSet[TileType.CROSSBOW] = numCrossbows
+        p2ToBeSet[TileType.CROSSBOW] = numCrossbows
+
+        p1ToBeSet[TileType.CATIPULT] = numCatupults
+        p2ToBeSet[TileType.CATIPULT] = numCatupults
+
+        p1ToBeSet[TileType.TREBUCHET] = numTrebuchet
+        p2ToBeSet[TileType.TREBUCHET] = numTrebuchet
+
+        p1ToBeSet[TileType.LIGHTHORSE] = numLightHorse
+        p2ToBeSet[TileType.LIGHTHORSE] = numLightHorse
+
+        p1ToBeSet[TileType.HEAVYHORSE] = numHeavyHorse
+        p2ToBeSet[TileType.HEAVYHORSE] = numHeavyHorse
+
+        p1ToBeSet[TileType.ELEPHANT] = numElephant
+        p2ToBeSet[TileType.ELEPHANT] = numElephant
+
+        p1ToBeSet[TileType.MOUNTAIN] = numMountains
+        p2ToBeSet[TileType.MOUNTAIN] = numMountains
+
+        p1ToBeSet[TileType.DRAGON] = 1
+        p2ToBeSet[TileType.DRAGON] = 1
+
+        p1ToBeSet[TileType.KING] = 1
+        p2ToBeSet[TileType.KING] = 1
 
         // Initialize the gameboard to only terrain
         for (i in 1..GlobalGameData.boardSize) {
