@@ -12,6 +12,7 @@ class GameTile {
     var movement: Int = 0
     var tileType: TileType
     val p1Tile: Boolean
+    val highlighted = false
 
     constructor(tType: TileType, player1: Boolean) {
         tileType = tType

@@ -1,6 +1,8 @@
 package com.example.charlie.cyvasse
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.service.quicksettings.Tile
 import android.util.Log
 import android.view.View
@@ -120,7 +122,9 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
                 imageView.setImageResource(R.drawable.dirt_tiles)
             }
         }
-
+        if (tiles[position].highlighted) {
+            imageView.setColorFilter(Color.GREEN, PorterDuff.Mode.LIGHTEN)
+        }
         return imageView
     }
 }
