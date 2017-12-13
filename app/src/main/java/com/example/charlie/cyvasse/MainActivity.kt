@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         // Start a new game
         newGameButton.setOnClickListener {
             val intent = Intent(applicationContext, NewGameActivity::class.java)
+            GlobalGameData.player1Turn = true
             startActivity(intent)
         }
         // Load an old game

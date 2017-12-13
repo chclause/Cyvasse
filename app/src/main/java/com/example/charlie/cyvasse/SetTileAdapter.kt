@@ -37,19 +37,37 @@ class SetTileAdapter(getContext : Context, pos: Int) : BaseAdapter() {
             imageView = convertView as SquareImageView
         }
 
-        when (position) {
-            0 -> imageView.setImageResource(R.drawable.black_rable)
-            1 -> imageView.setImageResource(R.drawable.black_spearman)
-            2 -> imageView.setImageResource(R.drawable.black_crossbow)
-            3 -> imageView.setImageResource(R.drawable.black_catupult)
-            4 -> imageView.setImageResource(R.drawable.black_trebuchet)
-            5 -> imageView.setImageResource(R.drawable.black_lighthorse)
-            6 -> imageView.setImageResource(R.drawable.black_heavyhorse)
-            7 -> imageView.setImageResource(R.drawable.black_elephant)
-            8 -> imageView.setImageResource(R.drawable.black_dragon)
-            9 -> imageView.setImageResource(R.drawable.black_king)
-            10 -> imageView.setImageResource(R.drawable.black_mountain)
-            else -> { imageView.setImageResource(R.drawable.dirt_tiles) }
+        if (GlobalGameData.player1Turn) {
+            when (position) {
+                0 -> imageView.setImageResource(R.drawable.black_rable)
+                1 -> imageView.setImageResource(R.drawable.black_spearman)
+                2 -> imageView.setImageResource(R.drawable.black_crossbow)
+                3 -> imageView.setImageResource(R.drawable.black_catupult)
+                4 -> imageView.setImageResource(R.drawable.black_trebuchet)
+                5 -> imageView.setImageResource(R.drawable.black_lighthorse)
+                6 -> imageView.setImageResource(R.drawable.black_heavyhorse)
+                7 -> imageView.setImageResource(R.drawable.black_elephant)
+                8 -> imageView.setImageResource(R.drawable.black_dragon)
+                9 -> imageView.setImageResource(R.drawable.black_king)
+                10 -> imageView.setImageResource(R.drawable.black_mountain)
+                else -> { imageView.setImageResource(R.drawable.dirt_tiles) }
+            }
+        }
+        else {
+            when (position) {
+                0 -> imageView.setImageResource(R.drawable.blue_rable_upright)
+                1 -> imageView.setImageResource(R.drawable.blue_spearman_upright)
+                2 -> imageView.setImageResource(R.drawable.blue_crossbow_upright)
+                3 -> imageView.setImageResource(R.drawable.blue_catupult_upright)
+                4 -> imageView.setImageResource(R.drawable.blue_trebuchet_upright)
+                5 -> imageView.setImageResource(R.drawable.blue_lighthorse_upright)
+                6 -> imageView.setImageResource(R.drawable.blue_heavyhorse_upright)
+                7 -> imageView.setImageResource(R.drawable.blue_elephant_upright)
+                8 -> imageView.setImageResource(R.drawable.blue_dragon_upright)
+                9 -> imageView.setImageResource(R.drawable.blue_king_upright)
+                10 -> imageView.setImageResource(R.drawable.blue_mountain_upright)
+                else -> { imageView.setImageResource(R.drawable.dirt_tiles) }
+            }
         }
 
         return imageView
