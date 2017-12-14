@@ -149,7 +149,7 @@ class OfflineGameActivity : AppCompatActivity() {
 
     // Calculate the attack of a tile
     fun calculateAttack(pos: Int): Int {
-        var attack = 0
+        var attack = -1
         Log.e("ATTACK POS", pos.toString())
         if (pos % 10 == 0) {
             if (checkOppositeTeam(pos, pos+1)) {
@@ -218,6 +218,9 @@ class OfflineGameActivity : AppCompatActivity() {
             }
         }
         Log.e("RETURNING", attack.toString())
+        if (attack < 0) {
+            return 0
+        }
         return attack
     }
 
