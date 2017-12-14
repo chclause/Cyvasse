@@ -19,8 +19,6 @@ class GameObject {
     val numHeavyHorse = 1
     val numElephant = 1
 
-    val numRemaining = numMountains + numRabbles + numSpears + numCatupults + numCrossbows + numTrebuchet + numLightHorse + numHeavyHorse + numElephant + 2
-
 
     // Collections of game tiles
     var gameTiles: MutableList<GameTile> = mutableListOf()

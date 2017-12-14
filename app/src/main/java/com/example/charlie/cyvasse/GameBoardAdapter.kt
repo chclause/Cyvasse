@@ -125,6 +125,9 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
         if (tiles[position].highlighted) {
             imageView.setColorFilter(Color.GREEN, PorterDuff.Mode.LIGHTEN)
         }
+        else {
+            imageView.clearColorFilter()
+        }
         return imageView
     }
 }
