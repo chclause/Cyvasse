@@ -65,7 +65,19 @@ class OfflineGameActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    selectedTile = position
                     gameBoard.invalidateViews()
+                }
+                else {
+                    if (currentTile.highlighted && currentTile.tileType == TileType.TERRAIN) {
+                        resetHighlighted()
+                        gameObject.gameTiles[position] = GameTile(gameObject.gameTiles[selectedTile].tileType, gameObject.gameTiles[selectedTile].p1Tile)
+                        gameObject.gameTiles[selectedTile] = GameTile(TileType.TERRAIN, true)
+                        selectedTile = -1
+                        gameObject.p1Turn = !gameObject.p1Turn
+                        GlobalGameData.player1Turn = !GlobalGameData.player1Turn
+                        gameBoard.invalidateViews()
+                    }
                 }
 
 
