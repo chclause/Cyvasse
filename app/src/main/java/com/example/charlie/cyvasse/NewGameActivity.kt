@@ -189,6 +189,7 @@ class NewGameActivity : AppCompatActivity() {
                         newGame.gameTiles[temp] = GameTile(newGame.tempTiles[i].tileType, false)
                     }
                 }
+                GlobalGameData.preGameSelected = -1
                 val intent = Intent(applicationContext, OfflineGameActivity::class.java)
                 intent.putExtra("GAME", GlobalGameData.globalGameObjects.indexOf(newGame))
                 startActivity(intent)

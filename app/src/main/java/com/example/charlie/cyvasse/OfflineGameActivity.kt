@@ -1,5 +1,6 @@
 package com.example.charlie.cyvasse
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.service.quicksettings.Tile
@@ -69,7 +70,13 @@ class OfflineGameActivity : AppCompatActivity() {
                     gameBoard.invalidateViews()
                 }
                 else {
-                    if (currentTile.highlighted && currentTile.tileType == TileType.TERRAIN) {
+                    // Regular movement
+                    if (position == selectedTile) {
+                        resetHighlighted()
+                        selectedTile = -1
+                        gameBoard.invalidateViews()
+                    }
+                    else if (currentTile.highlighted && currentTile.tileType == TileType.TERRAIN) {
                         resetHighlighted()
                         gameObject.gameTiles[position] = GameTile(gameObject.gameTiles[selectedTile].tileType, gameObject.gameTiles[selectedTile].p1Tile)
                         gameObject.gameTiles[selectedTile] = GameTile(TileType.TERRAIN, true)
@@ -78,11 +85,83 @@ class OfflineGameActivity : AppCompatActivity() {
                         GlobalGameData.player1Turn = !GlobalGameData.player1Turn
                         gameBoard.invalidateViews()
                     }
+                    else if (currentTile.highlighted && currentTile.tileType != TileType.MOUNTAIN && currentTile.tileType != TileType.TERRAIN) {
+                        // Player wins attack
+                       if ((calculateAttack(position) + gameObject.gameTiles[selectedTile].attack) > currentTile.defense) {
+                           resetHighlighted()
+                           if (gameObject.gameTiles[position].tileType == TileType.KING) {
+                               // Game over
+                               val intent = Intent(applicationContext, MainActivity::class.java)
+                               startActivity(intent)
+                           }
+                           gameObject.gameTiles[position] = GameTile(gameObject.gameTiles[selectedTile].tileType, gameObject.gameTiles[selectedTile].p1Tile)
+                           gameObject.gameTiles[selectedTile] = GameTile(TileType.TERRAIN, true)
+                           selectedTile = -1
+                           gameObject.p1Turn = !gameObject.p1Turn
+                           GlobalGameData.player1Turn = !GlobalGameData.player1Turn
+                           gameBoard.invalidateViews()
+                       }
+                        // Its a tie, both die
+                        else if ((calculateAttack(position) + gameObject.gameTiles[selectedTile].attack) == currentTile.defense) {
+                           resetHighlighted()
+                           if (gameObject.gameTiles[position].tileType == TileType.KING || gameObject.gameTiles[selectedTile].tileType == TileType.KING) {
+                               // Game over
+                               val intent = Intent(applicationContext, MainActivity::class.java)
+                               startActivity(intent)
+                           }
+                           gameObject.gameTiles[position] = GameTile(TileType.TERRAIN, true)
+                           gameObject.gameTiles[selectedTile] = GameTile(TileType.TERRAIN, true)
+                           selectedTile = -1
+                           gameObject.p1Turn = !gameObject.p1Turn
+                           GlobalGameData.player1Turn = !GlobalGameData.player1Turn
+                           gameBoard.invalidateViews()
+                       }
+                    }
                 }
 
 
             }
         }
+    }
+
+    // Calculate the attack of a tile
+    fun calculateAttack(pos: Int): Int {
+        var attack = 0
+        if (pos % 10 == 0) {
+            attack += gameObject.gameTiles[pos+1].attack
+            if (pos < 90) {
+                attack += gameObject.gameTiles[pos+10].attack
+            }
+            if (pos > 0) {
+                attack += gameObject.gameTiles[pos-10].attack
+            }
+        }
+        else if (pos % 10 == 9) {
+            attack += gameObject.gameTiles[pos-1].attack
+            if (pos < 90) {
+                attack += gameObject.gameTiles[pos+10].attack
+            }
+            if (pos > 9) {
+                attack += gameObject.gameTiles[pos-10].attack
+            }
+        }
+        else if (pos >= 90 && pos < 99) {
+            attack += gameObject.gameTiles[pos-10].attack
+            attack += gameObject.gameTiles[pos+1].attack
+            attack += gameObject.gameTiles[pos-1].attack
+        }
+        else if (pos >0 && pos < 9) {
+            attack += gameObject.gameTiles[pos+10].attack
+            attack += gameObject.gameTiles[pos+1].attack
+            attack += gameObject.gameTiles[pos-1].attack
+        }
+        else {
+            attack += gameObject.gameTiles[pos+1].attack
+            attack += gameObject.gameTiles[pos-1].attack
+            attack += gameObject.gameTiles[pos+10].attack
+            attack += gameObject.gameTiles[pos-10].attack
+        }
+        return attack
     }
 
     // Currently only supports 1 tile movement
@@ -104,7 +183,7 @@ class OfflineGameActivity : AppCompatActivity() {
                 currentlyHighlighted.add(pos+10)
             }
             if (pos > 9) {
-                currentlyHighlighted.add(pos-1)
+                currentlyHighlighted.add(pos-10)
             }
         }
         else if (pos >= 90 && pos < 99) {
