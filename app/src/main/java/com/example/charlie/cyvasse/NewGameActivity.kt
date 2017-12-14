@@ -129,7 +129,7 @@ class NewGameActivity : AppCompatActivity() {
                         newGame.p2ToBeSet[newGame.tempTiles[position].tileType] = tilesLeft
                     }
                     // Set the tile in the temp grid
-                    newGame.tempTiles[position] = GameTile(selectedTileType, true)
+                    newGame.tempTiles[position] = GameTile(selectedTileType, false)
                     // Decrement
                     tilesLeft = newGame.p2ToBeSet.getOrDefault(selectedTileType, 0)
                     tilesLeft --

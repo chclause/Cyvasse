@@ -82,7 +82,7 @@ class GameTile {
                 attack = 5
                 defense = 5
                 range = 1
-                movement = 10
+                movement = 4
             }
             TileType.KING -> {
                 attack = 3
