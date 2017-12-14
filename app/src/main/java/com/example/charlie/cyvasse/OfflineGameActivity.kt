@@ -7,6 +7,7 @@ import android.service.quicksettings.Tile
 import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.Toast
 
 class OfflineGameActivity : AppCompatActivity() {
 
@@ -87,6 +88,8 @@ class OfflineGameActivity : AppCompatActivity() {
                     }
                     else if (currentTile.highlighted && currentTile.tileType != TileType.MOUNTAIN && currentTile.tileType != TileType.TERRAIN) {
                         // Player wins attack
+                        Toast.makeText(this@OfflineGameActivity, "Attack: ${calculateAttack(position) + gameObject.gameTiles[selectedTile].attack}",
+                                Toast.LENGTH_LONG).show()
                        if ((calculateAttack(position) + gameObject.gameTiles[selectedTile].attack) > currentTile.defense) {
                            resetHighlighted()
                            if (gameObject.gameTiles[position].tileType == TileType.KING) {
@@ -117,6 +120,7 @@ class OfflineGameActivity : AppCompatActivity() {
                            gameBoard.invalidateViews()
                        }
                     }
+                    selectedTile = -1
                 }
 
 
@@ -127,41 +131,84 @@ class OfflineGameActivity : AppCompatActivity() {
     // Calculate the attack of a tile
     fun calculateAttack(pos: Int): Int {
         var attack = 0
+        var tile = gameObject.gameTiles[pos]
         if (pos % 10 == 0) {
-            attack += gameObject.gameTiles[pos+1].attack
+            if (checkOppositeTeam(pos, pos+1)) {
+                attack += 1
+            }
             if (pos < 90) {
-                attack += gameObject.gameTiles[pos+10].attack
+                if (checkOppositeTeam(pos, pos+10)) {
+                    attack += 1
+                }
             }
             if (pos > 0) {
-                attack += gameObject.gameTiles[pos-10].attack
+                if (checkOppositeTeam(pos, pos-10)) {
+                    attack += 1
+                }
             }
         }
         else if (pos % 10 == 9) {
-            attack += gameObject.gameTiles[pos-1].attack
+            if (checkOppositeTeam(pos, pos-1)) {
+                attack += 1
+            }
             if (pos < 90) {
-                attack += gameObject.gameTiles[pos+10].attack
+                if (checkOppositeTeam(pos, pos+10)) {
+                    attack += 1
+                }
             }
             if (pos > 9) {
-                attack += gameObject.gameTiles[pos-10].attack
+               if (checkOppositeTeam(pos, pos-10)) {
+                   attack += 1
+               }
             }
         }
         else if (pos >= 90 && pos < 99) {
-            attack += gameObject.gameTiles[pos-10].attack
-            attack += gameObject.gameTiles[pos+1].attack
-            attack += gameObject.gameTiles[pos-1].attack
+            if (checkOppositeTeam(pos, pos-10)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos+1)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos-1)) {
+                attack += 1
+            }
         }
         else if (pos >0 && pos < 9) {
-            attack += gameObject.gameTiles[pos+10].attack
-            attack += gameObject.gameTiles[pos+1].attack
-            attack += gameObject.gameTiles[pos-1].attack
+            if (checkOppositeTeam(pos, pos+10)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos+1)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos-1)) {
+                attack += 1
+            }
         }
         else {
-            attack += gameObject.gameTiles[pos+1].attack
-            attack += gameObject.gameTiles[pos-1].attack
-            attack += gameObject.gameTiles[pos+10].attack
-            attack += gameObject.gameTiles[pos-10].attack
+            if (checkOppositeTeam(pos, pos-10)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos+1)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos-1)) {
+                attack += 1
+            }
+            if (checkOppositeTeam(pos, pos+10)) {
+                attack += 1
+            }
         }
         return attack
+    }
+
+    fun checkOppositeTeam(pos1: Int, pos2: Int): Boolean {
+        if (gameObject.gameTiles[pos1].tileType == TileType.MOUNTAIN || gameObject.gameTiles[pos2].tileType == TileType.MOUNTAIN) {
+            return false
+        }
+        if (gameObject.gameTiles[pos1].tileType == TileType.TERRAIN || gameObject.gameTiles[pos2].tileType == TileType.TERRAIN) {
+            return false
+        }
+        return (((gameObject.gameTiles[pos1].p1Tile && !gameObject.gameTiles[pos2].p1Tile) || (!gameObject.gameTiles[pos1].p1Tile && gameObject.gameTiles[pos2].p1Tile)))
     }
 
     // Currently only supports 1 tile movement
