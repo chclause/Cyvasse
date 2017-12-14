@@ -7,4 +7,6 @@ object GlobalGameData {
 
     var player1Turn = true
 
+    var preGameSelected = -1
+
 }
