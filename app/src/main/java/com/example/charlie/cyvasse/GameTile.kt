@@ -12,7 +12,7 @@ class GameTile {
     var movement: Int = 0
     var tileType: TileType
     val p1Tile: Boolean
-    val highlighted = false
+    var highlighted = false
 
     constructor(tType: TileType, player1: Boolean) {
         tileType = tType
@@ -82,7 +82,7 @@ class GameTile {
                 attack = 5
                 defense = 5
                 range = 1
-                movement = 10
+                movement = 4
             }
             TileType.KING -> {
                 attack = 3

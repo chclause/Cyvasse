@@ -39,6 +39,32 @@ class NewGameActivity : AppCompatActivity() {
             }
         }
 
+        // Set up adapter for selection panel
+        val tileSelectionGridView: GridView = this.findViewById(R.id.openingTileSelectionGrid)
+        tileSelectionGridView.adapter = SetTileAdapter(this, pos)
+        tileSelectionGridView.onItemClickListener = object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>, v: View,
+                                     position: Int, id: Long) {
+                // Past selectable tile
+                if (position > 10) {
+                    return
+                }
+                // Set position and tiletype
+                selectedTileType = getTileType(position)
+                GlobalGameData.preGameSelected = position
+                tileSelectionGridView.invalidateViews()
+                if (newGame.p1Turn) {
+                    Toast.makeText(this@NewGameActivity, newGame.p1ToBeSet[selectedTileType].toString() + " remaining",
+                            Toast.LENGTH_LONG).show()
+                }
+                else {
+                    Toast.makeText(this@NewGameActivity, newGame.p2ToBeSet[selectedTileType].toString() + " remaining",
+                            Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+
         // Set up adapters for the game board and the tiles
         val gameBoardGridView: GridView = this.findViewById(R.id.gameBoard)
         gameBoardGridView.adapter = GameBoardAdapter(this, pos)
@@ -103,7 +129,7 @@ class NewGameActivity : AppCompatActivity() {
                         newGame.p2ToBeSet[newGame.tempTiles[position].tileType] = tilesLeft
                     }
                     // Set the tile in the temp grid
-                    newGame.tempTiles[position] = GameTile(selectedTileType, true)
+                    newGame.tempTiles[position] = GameTile(selectedTileType, false)
                     // Decrement
                     tilesLeft = newGame.p2ToBeSet.getOrDefault(selectedTileType, 0)
                     tilesLeft --
@@ -115,30 +141,9 @@ class NewGameActivity : AppCompatActivity() {
                 }
                 // Reset selection and then redraw
                 selectedTileType = TileType.TERRAIN
+                GlobalGameData.preGameSelected = -1
                 gameBoardGridView.invalidateViews()
-            }
-        }
-
-        // Set up adapter for selection panel
-        val tileSelectionGridView: GridView = this.findViewById(R.id.openingTileSelectionGrid)
-        tileSelectionGridView.adapter = SetTileAdapter(this, pos)
-        tileSelectionGridView.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(parent: AdapterView<*>, v: View,
-                                     position: Int, id: Long) {
-                // Past selectable tile
-                if (position > 10) {
-                    return
-                }
-                // Set position and tiletype
-                selectedTileType = getTileType(position)
-                if (newGame.p1Turn) {
-                    Toast.makeText(this@NewGameActivity, newGame.p1ToBeSet[selectedTileType].toString() + " remaining",
-                            Toast.LENGTH_LONG).show()
-                }
-                else {
-                    Toast.makeText(this@NewGameActivity, newGame.p2ToBeSet[selectedTileType].toString() + " remaining",
-                            Toast.LENGTH_LONG).show()
-                }
+                tileSelectionGridView.invalidateViews()
             }
         }
 
@@ -184,6 +189,7 @@ class NewGameActivity : AppCompatActivity() {
                         newGame.gameTiles[temp] = GameTile(newGame.tempTiles[i].tileType, false)
                     }
                 }
+                GlobalGameData.preGameSelected = -1
                 val intent = Intent(applicationContext, OfflineGameActivity::class.java)
                 intent.putExtra("GAME", GlobalGameData.globalGameObjects.indexOf(newGame))
                 startActivity(intent)

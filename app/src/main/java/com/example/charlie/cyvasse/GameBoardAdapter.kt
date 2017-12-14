@@ -34,7 +34,6 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
         //  otherwise just set it to return
         val imageView : SquareImageView
         if (!gameObject.gameStarted) {
-            Log.e("IN ADAPTER", "NOT STARTED")
             tiles = gameObject.tempTiles
         }
 
@@ -122,8 +121,14 @@ class GameBoardAdapter(getContext : Context, id: Int) : BaseAdapter() {
                 imageView.setImageResource(R.drawable.dirt_tiles)
             }
         }
-        if (tiles[position].highlighted) {
+        if (tiles[position].highlighted && tiles[position].tileType == TileType.TERRAIN) {
             imageView.setColorFilter(Color.GREEN, PorterDuff.Mode.LIGHTEN)
+        }
+        else if (tiles[position].highlighted) {
+            imageView.setColorFilter(Color.RED, PorterDuff.Mode.LIGHTEN)
+        }
+        else {
+            imageView.clearColorFilter()
         }
         return imageView
     }

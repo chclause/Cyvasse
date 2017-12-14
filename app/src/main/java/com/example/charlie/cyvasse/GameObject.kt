@@ -7,8 +7,8 @@ import android.service.quicksettings.Tile
  */
 class GameObject {
     /** Tile number constants **/
-    val numMountains = 5
-    val numRabbles = 5
+    val numMountains = 4
+    val numRabbles = 4
     val numSpears = 2
 
     val numCrossbows = 2
@@ -18,8 +18,6 @@ class GameObject {
     val numLightHorse = 2
     val numHeavyHorse = 1
     val numElephant = 1
-
-    val numRemaining = numMountains + numRabbles + numSpears + numCatupults + numCrossbows + numTrebuchet + numLightHorse + numHeavyHorse + numElephant + 2
 
 
     // Collections of game tiles
@@ -32,6 +30,8 @@ class GameObject {
     // Keep track of whose turn it is
     var p1Turn = true
     var gameStarted = false
+
+    var preGameSelected = -1
 
 
     // Add all tiles that need to be set to their proper mapping
